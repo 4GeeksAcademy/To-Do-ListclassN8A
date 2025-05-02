@@ -1,28 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+	
+	const [toDoList, setToDoList] = useState([])
+	const [newToDo, setNewToDo] = useState("")
+	const [showX, setShowX] = useState(null)
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	const handlePressKey = (e) => {
+		if (e.key === "Enter") {
+			setToDoList([...toDoList, newToDo])
+			setNewToDo("")
+		}
+	}
+	const handleDelete = (indexToDelete)=> {
+		console.log("delete")
+		setToDoList(toDoList.filter((elem, index) => index !== indexToDelete))
+	}
+
+
+return (
+	<div className="box">
+	<div className="text-center">
+		<div id="title">ToDoList</div>
+		<div id="container-toDo-list">
+			<ul>
+				<li>
+					<input
+					className="text-box"
+					type="text"
+					placeholder="What needs to be done?"
+					value={newToDo}
+					onChange={(e) => setNewToDo(e.target.value)}
+						onKeyDown={handlePressKey} 
+					/>
+				</li>
+				{
+					toDoList.map((toDo, index) => (
+						<li
+							onMouseOver = { () => setShowX(index)}
+
+							>{toDo}
+							{showX === index && <small className="delete mx-2" onClick={() => handleDelete(index)}>x</small>}
+							
+						</li>
+					))
+				}
+				<li id="counter">{toDoList.length === 0 ? "No tasks left to do" : toDoList.length + "  Tasks left!"}</li>
+			</ul>
 		</div>
-	);
+	</div>
+	</div>
+)
+
 };
 
 export default Home;
