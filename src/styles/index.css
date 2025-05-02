@@ -71,4 +71,5 @@ ul li {
 
 .delete {
     color:hsl(357, 100%, 89%);
+    padding-right: 30px;
 }

@@ -41,10 +41,11 @@ return (
 				{
 					toDoList.map((toDo, index) => (
 						<li
+						className="d-flex justify-content-between"
 							onMouseOver = { () => setShowX(index)}
 
 							>{toDo}
-							{showX === index && <small className="delete mx-2" onClick={() => handleDelete(index)}>x</small>}
+							{showX === index && <small className="delete" onClick={() => handleDelete(index)}>x</small>}
 							
 						</li>
 					))
